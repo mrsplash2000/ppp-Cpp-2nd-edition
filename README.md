@@ -47,7 +47,7 @@ laws by any means, but rather providing solutions and helping the community read
 
 ```git push --set-upstream origin <branchname>```  
 
-   After that, place your exercises files inside the directory called "Exercises(Your solutions)". 
+   After that, place your exercises files inside the directory called "Exercises And Drills (Your Solutions)". 
    This directory by default is empty and when you put files in here, you are basically doing that 
    in your branch. First thing to do, make sure you are on your branch. To do that run this command:
 
@@ -98,4 +98,8 @@ updated state. The only thing you can do is to request for merge for the files I
 the changes and review them. If they're serious changes, I'll confirm, otherwise I would reject if I don't 
 see any major change.
 
-Also, I won't allow pushing solutions on the main branch. Solutions must be pushed into their individual branches.
+Also, I won't allow pushing solutions on the main branch. Solutions must be pushed into their individual branches
+and inside this folder "Exercises And Drills (Your Solutions)".
+
+Make sure the commands you're running are running in which branch. This is very important so that you wouldn't accidentally
+pust to another branch.
