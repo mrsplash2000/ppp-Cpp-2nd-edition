@@ -75,3 +75,27 @@ git commit -m "MESSAGE"
 
    At this point, your files are pushed to your branch in the repo. You can even view and confirm it by
    going to the branches section and see that your branch is added along with the files. 
+
+### Keeping the state of the directory
+Since git works locally on your machine, you have to do pull and fetch commands. These two commands ensure
+that if someone creates a new branch or even me, changing some of the files, it fetches the new state of
+the repository. From time to time (Everyday) run these two commands:
+
+```
+git pull
+git fetch origin 
+```
+
+You can also run this command to see if any other new branches have been created:
+
+```
+git branch -a
+```
+
+### Safety Notes
+By default, you can't push into the main branch. The main branch is going to contain files in the most
+updated state. The only thing you can do is to request for merge for the files I've included. I will view
+the changes and review them. If they're serious changes, I'll confirm, otherwise I would reject if I don't 
+see any major change.
+
+Also, I won't allow pushing solutions on the main branch. Solutions must be pushed into their individual branches.
