@@ -1,0 +1,2 @@
+This is where you must place your solutions. It is required that you create
+seperate folders for each chapter and each exercise. Thank you :)
