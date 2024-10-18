@@ -103,3 +103,6 @@ and inside this folder "Exercises And Drills (Your Solutions)".
 
 Make sure the commands you're running are running in which branch. This is very important so that you wouldn't accidentally
 pust to another branch.
+
+### Challenges
+You can push your challenges from your own branch on the Challenges folder. All you have to do is to place your solution in a folder going by your name in your branch. That's it
