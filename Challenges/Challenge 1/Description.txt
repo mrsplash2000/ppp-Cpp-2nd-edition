@@ -1,0 +1,30 @@
+Write a program that prints this message at the beginning of the program (I explain what each option should do):
+"P - Print Numbers"
+"A - Add Numbers"
+"M - Display The Average Of Numbers"
+"S - Display The Smallest Number"
+"L - Display The Largest Number"
+"E - Display The Sum Of Numbers"
+"C - Clear The List"
+"F - Find The Number"
+"Q - Quit"
+
+`P` - Should print the numbers available in the vector. If the vector is empty, the program should print "[] - The list is empty.". If the vector is not empty, the numbers should be printed in this manner, for example like this: "[23, 14.23, 78.56, 12]"
+`A` - Should add numbers to your vector based on your input. If the number that you enter already exists in the vector, the program should print "(number) is already on the list." and then goes back to the selection input.
+`M` - Should print the average of the numbers. This is very obvious :)))
+`S` - Display The Smallest Number. Again, very obvious :)))
+`L` - Display The Largest Number
+`E` - Display The Sum Of Numbers
+`C` - Clears the list completely, making it empty.
+`F` - This option should ask for your input. If the number doesn't exist in the vector, it should print out this message: "(number) Does Not Exist!" and then goes back to the menu selection input. If the number is available, the program should print this message: "(number) is available!" and then after that, it should print the index for which this number exists in that vector.
+`Q` - Quits the program. To spice things up and make things interesting with this challenge, I want the program upon quitting, to store the results in a txt file. If the vector is empty, then no txt file shall be created. The results should be stored in this manner, something like this:
+```
+Numbers: [15, 23.56, 78, 46.23, 13]
+Count: 5
+Sum: 175.79
+Largest: 78
+Smallest: 13
+Average: 35.158
+```
+
+Make sure your code is modularized. One thing to note, this program runs until the user enters q to quit. Good luck and happy coding hours 🤘 🙂
