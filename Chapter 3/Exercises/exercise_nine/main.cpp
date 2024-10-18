@@ -1,32 +1,32 @@
+/*
+Write a program that converts spelled-out numbers such as “zero” and
+“two” into digits, such as 0 and 2. When the user inputs a number, the
+program should print out the corresponding digit. Do it for the values 0,
+1, 2, 3, and 4 and write out not a number I know if the user enters something
+that doesn’t correspond, such as stupid computer!.
+*/
+
 #include <iostream>
+#include <sstream>
+#include <vector>
+#include <algorithm>
 
 int main() {
-    string value {""};
-    cout << "Enter The Value In English Format: ";
-    while(cin >> value) {
-        switch(value){
-            case "zero":
-            case "Zero":
-                cout << "0" << '\n';
-                break;
-            case "one":
-            case "One":
-                cout << "1" << '\n';
-                break;
-            case "two":
-            case "Two":
-                cout << "2" << '\n';
-                break;
-            case "three":
-            case "Three":
-                cout << "0" << '\n';
-                break;
-            case "four":
-            case "Four":
-                cout << "4" << '\n';
-                break;
-            default:
-                cout << "not a number I know" << '\n';
+    std::string value {""};
+    int number {0};
+    std::vector <std::string> numbers {"zero", "one", "two", "three", "four"};
+    std::cout << "Enter The Value: ";
+    while(std::cin >> value) {
+        std::istringstream iss(value);
+        //Input Validation
+        if(iss >> number && number<numbers.size())
+            std::cout << numbers[number] << '\n';
+        else {
+            auto number_pointer = std::find(numbers.begin(), numbers.end(), value);
+            if(number_pointer != numbers.end())
+                std::cout << std::distance(numbers.begin(), number_pointer) << '\n';
+            else
+                std::cout << "Not a number I know!\n";
         }
     }
 
