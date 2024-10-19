@@ -98,12 +98,17 @@ void add_numbers(challenge_ds::Vector<double>& numbers) {
     bool allValid = false;
 
     while (!allValid) {
-        std::string str = prompt_and_get_user_input("Enter numbers separated by spaces (e.g., 100 200 300): ");
+        std::string str = prompt_and_get_user_input("Enter numbers separated by spaces (e.g., 100 200 300) or q to quit: ");
         std::istringstream iss(str);
         std::string token;
         challenge_ds::Vector<double> tempNumbers;
         
         allValid = true;
+        // check if user wanted to quit
+        if (str.length() == 1 && str == "q") {
+            clear();
+            break;
+        }
         while (iss >> token || token == "") {
             std::istringstream tokenstream(token);
             double num;
@@ -111,7 +116,7 @@ void add_numbers(challenge_ds::Vector<double>& numbers) {
             if (!(tokenstream >> num) || !tokenstream.eof()) {
                 allValid = false;
                 clear();
-                mvprintw(0, 0, "Invalid input: '%s'. Only doubles are allowed.", token.c_str());
+                mvprintw(0, 0, "Invalid input: '%s'. Only doubles are allowed or q to quit.", token.c_str());
                 mvprintw(LINES - 1, 0, try_again_prompt);
                 getch();  // Wait for user to acknowledge the error
                 break;
@@ -155,27 +160,31 @@ void find_number(const challenge_ds::Vector<double>& numbers) {
     else {
         bool valid = false;
         while (!valid) {
-            std::string str = prompt_and_get_user_input("Enter a number to find: ");
+            std::string str = prompt_and_get_user_input("Enter a number to find or q to quit: ");
             std::istringstream iss(str);
             double num;
             valid = true;
             std::string check_no_more_tokens;
+            // check if user wanted to quit
+            if (str.length() == 1 && str == "q") {
+                clear();
+                break;
+            }
             // expect only one double, no more than that
             if (!(iss >> num) || iss >> check_no_more_tokens) {
                 valid = false;
                 clear();
-                mvprintw(0, 0, "Invalid input. Only one double is allowed.");
+                mvprintw(0, 0, "Invalid input. Only one double is allowed or q to quit.");
                 mvprintw(LINES - 1, 0, try_again_prompt);
                 getch();  // Wait for user to acknowledge the error
                 continue;
             }
             auto res = challenge_ds::find(numbers, num);
+            clear();
             if (res) {
-                clear();
                 mvprintw(0, 0, (std::to_string(num) + " is available. At index: " + std::to_string(res->first)).c_str());
             }
             else {
-                clear();
                 mvprintw(0, 0, (std::to_string(num) + " does not exist.").c_str());
             }
             break;
