@@ -1,0 +1,14 @@
+Numbers: [45.000000, 12.000000, 78.000000]
+Count: 3
+Sum: 135
+Largest: 78
+Smallest: 12
+Average: 45
+====================
+Numbers: [13.000000]
+Count: 1
+Sum: 13
+Largest: 13
+Smallest: 13
+Average: 13
+====================

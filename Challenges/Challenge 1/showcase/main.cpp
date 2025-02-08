@@ -33,21 +33,29 @@ Average: 35.158
 
 
 Make sure your code is modularized. One thing to note, this program runs until the user enters q to quit. Good luck and happy coding hours
+
+To do list (Divide And Conquer):
+1. Printing Main Menu /
+2. Clear console (upon user input) /
+3. switch case for each possible input (Digging the graves) /
+4. Modularization for each option (carrying out each option) /
+5. Input validation /
+6. File writing
 */
 
+//Header Files
 #include <iostream>
+#include <cstdlib>
 #include <vector>
-#include <string> //for std::to_string
-#include <cstdlib> //for system calls
-#include <sstream> //for input validation
-#include <algorithm> //for std::find + min_element + max_element
-#include <numeric> //for using std::accumulate function calculating sum of values
-#include <fstream> //for reading and writing to files
+#include <sstream> //istringstream
+#include <algorithm> //std::find + min_element + max_element
+#include <string>
+#include <numeric> //std::accumulate
+#include <fstream> //std::ofstream
 
-//=========Functions=========
-void displayMenu() {
-    //Displays the menu
-    std::cout << "======================\n"
+//Functions
+void mainMenu() {
+    std::cout << "===================\n"
                     << "P - Print Numbers\n"
                     << "A - Add Numbers\n"
                     << "M - Display The Average Of Numbers\n"
@@ -57,89 +65,84 @@ void displayMenu() {
                     << "C - Clear The List\n"
                     << "F - Find The Number\n"
                     << "Q - Quit\n"
-                    << "======================\n"
+                    << "===================\n"
                     << "Enter Your Choice: ";
 }
 
 void clearConsole() {
-    //clears the console based on the operating system
+    //clears the console based on your operating system
     #ifdef _WIN32
-        system("cls"); // Windows
+        system("cls"); //Windows
     #else
-        system("clear"); // Linux and other Unix-like systems
+        system("clear"); //Linux and MacOS
     #endif
 }
 
-void printElements(std::vector <double> numbers_vector) {
-    //Checking if the list is empty or not
+void printNumbers(std::vector <double> numbers_vector) {
     if(numbers_vector.empty())
-        std::cout << "[] - The list is empty.\n";
-    //Printing the elements if the list is not empty
+        std::cout << "[] - The List Is Empty.\n";
     else {
         std::cout << "[";
-        for(double x:numbers_vector)
+        for(auto x:numbers_vector)
             std::cout << x << ", ";
         std::cout << "\b\b]\n";
     }
 }
 
-bool validInput(double &num) {
-    //Asks for input
+bool inputValidation(double &num) {
+    //Asking for user input
+    std::cout << "Enter Your Number: ";
     std::string input {""};
-    std::cout << "Enter The Number: ";
     std::cin >> input;
-
-    //Checks if the input is valid or not
+    //Input Validation
     std::istringstream iss(input);
-    if(iss >> num)
+    if(iss >> num && iss.eof())
         return true;
     else {
-        std::cout << "Please Try Again And Enter A Number!\n";
+        std::cout << "Please Enter A Valid Number!\n";
         return false;
     }
 }
 
-void addElements(std::vector <double> &numbers_vector) {
-    //Adds numbers based on user's input to the vector
+void addNumbers(std::vector <double> &numbers_vector) {
     double number {0};
 
-    //Input validation + Checks to see if the number exists in the list or not
-    if(validInput(number)) {
-        auto number_finder = std::find(numbers_vector.begin(), numbers_vector.end(), number);
-        if(number_finder == numbers_vector.end()) {
+    //Checking to see if the number exists in our vector or not
+    if(inputValidation(number)) {
+        auto number_pointer = std::find(numbers_vector.begin(), numbers_vector.end(), number);
+        if(number_pointer == numbers_vector.end()) {
+            std::cout << "Added " << number << " To The List.\n";
             numbers_vector.push_back(number);
-            std::cout << "Added " << number << " To The List\n";
-        } else
+        } else {
             std::cout << number << " Is Already On The List!\n";
+        }
     }
 }
 
-void displayAverage(std::vector <double> &numbers_vector) {
-    //Displays the mean of all elements in the vector
-    std::cout << "Average: " << std::accumulate(numbers_vector.begin(), numbers_vector.end(), 0.0)/numbers_vector.size() << '\n';
+void displayAverage(std::vector <double> numbers_vector) {
+    //Displays the average of all elements
+    std::cout << std::accumulate(numbers_vector.begin(), numbers_vector.end(), 0.0) / numbers_vector.size() << '\n';
 }
 
-void displaySmallest(std::vector <double> &numbers_vector) {
-    //Displays the smallest number in the vector
-    //Need to check by vector's size because otherwise the program throws an error and crashes
+void displaySmallest(std::vector <double> numbers_vector) {
+    //Displays the smallest element
     if(!numbers_vector.empty())
-        std::cout << "Smallest: " << *std::min_element(numbers_vector.begin(), numbers_vector.end()) << '\n';
+        std::cout << *std::min_element(numbers_vector.begin(), numbers_vector.end()) << '\n';
     else
-        std::cout << "No Elements In The List To Show The Smallest!\n";
+        std::cout << "No elements in the vector!\n";
 }
 
-void displayLargest(std::vector <double> &numbers_vector) {
-    //Displays the largest number in the vector
-    //Need to check by vector's size because otherwise the program throws an error and crashes
+void displayLargest(std::vector <double> numbers_vector) {
+    //Displays the largest element
     if(!numbers_vector.empty())
-        std::cout << "Largest: " << *std::max_element(numbers_vector.begin(), numbers_vector.end()) << '\n';
+        std::cout << *std::max_element(numbers_vector.begin(), numbers_vector.end()) << '\n';
     else
-        std::cout << "No Elements In The List To Show The Largest!\n";
+        std::cout << "No elements in the vector!\n";
 }
 
-void displaySum(std::vector <double> &numbers_vector) {
-    //Displays the sum of numbers present in the vector
-    std::cout << "Sum: " << std::accumulate(numbers_vector.begin(), numbers_vector.end(), 0.0) << '\n';
+void displaySum(std::vector <double> numbers_vector) {
+    //Displays the sum of all elements
+    std::cout << std::accumulate(numbers_vector.begin(), numbers_vector.end(), 0.0) << '\n';
 }
 
 void clearVector(std::vector <double> &numbers_vector) {
@@ -149,27 +152,30 @@ void clearVector(std::vector <double> &numbers_vector) {
 }
 
 void findNumber(std::vector <double> numbers_vector) {
-    //Finds number based on user input
+    //Looks for the number from the user input and displays the index if it's available
     double number {0};
 
-    if(validInput(number)){
-        auto number_finder = std::find(numbers_vector.begin(), numbers_vector.end(), number);
-        if(number_finder != numbers_vector.end()) {
-            std::cout << *number_finder << " Is Available!\n";
-            std::cout << "Index: " << std::distance(numbers_vector.begin(), number_finder) << '\n';
-        } else
+    //Checking to see if the number exists in our vector or not
+    if(inputValidation(number)) {
+        auto number_pointer = std::find(numbers_vector.begin(), numbers_vector.end(), number);
+        if(number_pointer != numbers_vector.end()) {
+            std::cout << number << " Is Available!\n";
+            std::cout << "Index: " << std::distance(numbers_vector.begin(), number_pointer) << '\n';
+        } else {
             std::cout << number << " Does Not Exist!\n";
+        }
     }
 }
 
 void writeToFile(std::vector <double> numbers_vector) {
-    if(!numbers_vector.empty()) {
+    //Writes the results to a file if the vector is not empty
+    if(!numbers_vector.empty()){
         std::ofstream file;
         std::string text {""};
         file.open("results.txt", std::ios::app);
         //Numbers
         file << "Numbers: [";
-        for(double x:numbers_vector)
+        for(auto x:numbers_vector)
             text += std::to_string(x) + ", ";
         text.pop_back();
         text.pop_back();
@@ -183,30 +189,28 @@ void writeToFile(std::vector <double> numbers_vector) {
         //Smallest
         file << "Smallest: " << *std::min_element(numbers_vector.begin(), numbers_vector.end()) << '\n';
         //Average
-        file << "Average: " << std::accumulate(numbers_vector.begin(), numbers_vector.end(), 0.0)/numbers_vector.size() << '\n';
-        file << "=======================\n";
+        file << "Average: " << std::accumulate(numbers_vector.begin(), numbers_vector.end(), 0.0) / numbers_vector.size() << '\n';
+        file << "====================\n";
         file.close();
     }
 }
-//=========Functions=========
 
 int main() {
-    //=========Variables=========
-    char choice {'a'};
+    //Variables
     bool state {true};
+    char input {'a'};
     std::vector <double> numbers {};
-    //=========Variables=========
 
     while(state) {
-        displayMenu();
-        std::cin >> choice;
+        mainMenu();
+        std::cin >> input;
         clearConsole();
-        switch(toupper(choice)) {
+        switch(toupper(input)) {
             case 'P':
-                printElements(numbers);
+                printNumbers(numbers);
                 break;
             case 'A':
-                addElements(numbers);
+                addNumbers(numbers);
                 break;
             case 'M':
                 displayAverage(numbers);
@@ -231,7 +235,7 @@ int main() {
                 state = false;
                 break;
             default:
-                std::cout << "Invalid Choice! Please Try Again!\n";
+                std::cout << "Invalid Input! Please Try Again!\n";
         }
     }
     return 0;

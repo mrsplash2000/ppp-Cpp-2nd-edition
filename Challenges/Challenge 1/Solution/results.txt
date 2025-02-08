@@ -12,3 +12,24 @@ Largest: 789.233
 Smallest: 1
 Average: 75.2464
 =======================
+Numbers: [1.000000]
+Count: 1
+Sum: 1
+Largest: 1
+Smallest: 1
+Average: 1
+=======================
+Numbers: [12.000000, 45.000000]
+Count: 2
+Sum: 57
+Largest: 45
+Smallest: 12
+Average: 28.5
+=======================
+Numbers: [12.000000]
+Count: 1
+Sum: 12
+Largest: 12
+Smallest: 12
+Average: 12
+=======================
